@@ -1,6 +1,6 @@
-from ejercicio1 import contar_concurrencia
-from ejercicio2 import sort_by_occurrences
-from ejercicio3 import check_symbols
+from tp0.ejercicio1 import contar_concurrencia
+from tp0.ejercicio2 import sort_by_occurrences
+from tp0.ejercicio3 import check_symbols
 
 
 def ejecutar_ejercicio_1():
@@ -38,16 +38,9 @@ def ejecutar_ejercicio_3():
     else:
         print("El texto/palabra no pertenece al alfabeto dado")
 
-def ejecutar_ejercicio_4():
-    pass
 
-
-if __name__ == '__main__':
-
+def run_tp0():
     dict_problem1 = ejecutar_ejercicio_1()
-
     ejecutar_ejercicio_2(dict_problem1)
-
     ejecutar_ejercicio_3()
 
-    ejecutar_ejercicio_4()

@@ -16,7 +16,6 @@ def convert(input_file_path: str, output_file_path: str) -> None:
         print("No se aceptan cadenas vacías")
         return None
 
-    #
     with open(input_file_path, "r", newline="", encoding="utf-8") as input_file, \
             open(output_file_path, "w", newline="", encoding="utf-8") as output_file:
         reader = csv.reader(input_file)

@@ -1,8 +1,8 @@
-from ejercicio6 import *
-from ejercicio7 import *
+from tp1.ejercicio6 import *
+from tp1.ejercicio7 import convert
 
-if __name__ == '__main__':
 
+def run_tp1():
     cadenas_a_b = ["0000", "", "-123002", "2", "0", "aaaa", "25", "-345", "101"]
     cadenas_c = ["", "mi_var", "_var_", "mi-var", "_1var", "1var", "var33", "_mivar", "123"]
     cadenas_d = ["", "abc", "aaaaabcccccc", "aabbcc", "aaaaaab", "aaaaa", "bcccc", "aabccccccccc", "abccccccccccc"]
