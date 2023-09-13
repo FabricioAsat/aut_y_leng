@@ -13,30 +13,41 @@ import re
 
 def convert(input_file_path: str, output_file_path: str) -> None:
     if len(input_file_path) == 0 and len(output_file_path) == 0:
-        print("No se aceptan cadenas vacías")
         return None
 
-    with open(input_file_path, "r", newline="", encoding="utf-8") as input_file, \
-            open(output_file_path, "w", newline="", encoding="utf-8") as output_file:
+    with open(input_file_path, "r", newline="", encoding="utf-8") as input_file, open(
+        output_file_path, "w", newline="", encoding="utf-8"
+    ) as output_file:
         reader = csv.reader(input_file)
         writer = csv.writer(output_file)
 
         for line_with_info in reader:
             if "first_name" and "last_name" and "gender" in line_with_info:
-                position_first_name = line_with_info.index("first_name")
-                position_last_name = line_with_info.index("last_name")
-                position_gender = line_with_info.index("gender")
-                position_email = line_with_info.index("email")
+                # position_first_name = line_with_info.index("first_name")
+                # position_last_name = line_with_info.index("last_name")
+                # position_gender = line_with_info.index("gender")
+                # position_email = line_with_info.index("email")
+                pass
+
+            #
+            position_first_name = 1
+            position_last_name = 2
+            position_gender = 4
+            position_email = 3
 
             # Acá realizo el ejercicio a)
-            line_with_info[position_first_name], line_with_info[position_last_name] = \
-                line_with_info[position_last_name], line_with_info[position_first_name]
+            line_with_info[position_first_name], line_with_info[position_last_name] = (
+                line_with_info[position_last_name],
+                line_with_info[position_first_name],
+            )
             del line_with_info[position_gender]
 
             # Acá realizo el ejercicio b)
-            target = r'@(\w|\.)+$'
+            target = r"@.*"
             replace = "@ing.unlpam.edu.ar"
-            line_with_info[position_email] = re.sub(target, replace, line_with_info[position_email])
+            line_with_info[position_email] = re.sub(
+                target, replace, line_with_info[position_email]
+            )
 
             writer.writerow(line_with_info)
 

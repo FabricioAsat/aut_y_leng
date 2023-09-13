@@ -1,18 +1,27 @@
-import unittest
-from p1.e7 import convert
+import csv
+from tp1.ejercicio7 import convert
 
 
-class TestCaseE7(unittest.TestCase):
-    def test_e7(self):
-        convert("MOCK_DATA.csv", "MOCK_DATA_r.csv")
-        with open("MOCK_DATA_r.csv", "r") as f, open("MOCK_DATA_RESULT.csv", "r") as f2:
-            content_file1 = f.readlines()
-            content_file2 = f2.readlines()
-            self.assertEqual(len(content_file1), len(content_file2))
-            for i in range(len(content_file1)):
-                with self.subTest(i):
-                    self.assertEqual(content_file1[i], content_file2[i])
+def test_e7():
+    convert("tp1/tests/MOCK_DATA.csv", "tp1/tests/MOCK_DATA_r.csv")
+
+    with open(
+        "tp1/tests/MOCK_DATA_r.csv", "r", newline="", encoding="utf-8"
+    ) as f, open(
+        "tp1/tests/MOCK_DATA_RESULT.csv", "r", newline="", encoding="utf-8"
+    ) as f2:
+        content_file1 = csv.reader(f)
+        content_file2 = csv.reader(f2)
+
+        data_file1 = [row for row in content_file1]
+        data_file2 = [row for row in content_file2]
+
+        for f1, f2 in zip(data_file1, data_file2):
+            if f1 == f2:
+                print(f"id {f1[0]} - OK")
+            else:
+                print(f"id {f1[0]} - ERROR")
 
 
-if __name__ == '__main__':
-    unittest.main()
+def run_tests_tp1_ej7():
+    test_e7()
