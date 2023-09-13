@@ -1,1 +1,4 @@
-id,first_name,last_name,email,gender,avatar,job_title,language,ssn1,Fabricio,Asat,fabricioasat00@gmail.com,Masculino,No,-,Español,424466562,Lautaro,Asat,lautaro@gmail.com,Masculino,No,-,Inglés,450000003,Verónica,Perez,verop@gmail.com,Femenino,No,*,Inglés - Español,35000000
+id,first_name,last_name,email,gender,avatar,job_title,language,ssn
+1,Fabricio,Asat,fabricioasat00@gmail.com,Masculino,No,-,Español,42446656
+2,Lautaro,Asat,lautaro@gmail.com,Masculino,No,-,Inglés,45000000
+3,Verónica,Perez,verop@gmail.com,Femenino,No,*,Inglés - Español,35000000
