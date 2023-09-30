@@ -7,5 +7,4 @@ if __name__ == "__main__":
     # run_tests_tp1_ej6()
     # run_tests_tp1_ej7()
 
-    a = validate("0001111111")
-    print(a)
+    res = validate("00101111111")

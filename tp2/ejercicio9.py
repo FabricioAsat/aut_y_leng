@@ -1,26 +1,64 @@
 import json
-
-"""
-Response = {
-        "original_string": string,
-        "modified_string": string,
-        "isValidString": boolean,
-    }
-"""
+import os
+import xmltodict
 
 
 def validate(string: str):
-    automaton = {}
+    respose = {}
+    # path = "tp2/file.json"
+    path = "tp2/3.jff"
+    ext = os.path.splitext(path)[1]
 
-    with open("tp2/file.json") as json_f:
-        automaton = json.load(json_f)
+    with open(path) as json_f:
+        if ext == ".jff":
+            automaton = xmltodict.parse(json_f.read())
+            json_automaton = transform(automaton)
+            respose = resolve(string, json_automaton)
+
+        else:
+            automaton = json.load(json_f)
+            respose = resolve(string, automaton)
+
         json_f.close()
 
+    return respose
+
+
+def transform(aut: dict):
+    aut_transf = {"F": [], "q0": "", "B": "#", "Delta": {}, "Gamma": []}
+    all_info = aut["structure"]["automaton"]
+    gamma_aux = []
+
+    for block in all_info["block"]:
+        if "final" in block:
+            aut_transf["F"].append("q" + block["@id"])
+        if "initial" in block:
+            aut_transf["q0"] = "q" + block["@id"]
+        aut_transf["Delta"].update({"q" + block["@id"]: {}})
+    for trans in all_info["transition"]:
+        trans["read"] = "#" if trans["read"] is None else trans["read"]
+        gamma_aux.append(trans["read"])
+        aut_transf["Delta"]["q" + trans["from"]].update(
+            {
+                trans["read"]: {
+                    "q": "q" + trans["to"],
+                    "e": "#" if trans["write"] is None else trans["write"],
+                    "m": trans["move"].lower(),
+                }
+            }
+        )
+    aut_transf["Gamma"] = list(set(gamma_aux))
+    return aut_transf
+
+
+def resolve(string: str, automaton: dict):
     all_symbols = automaton["Gamma"]  # ['0', '1']
     start = automaton["q0"]  # q0
     blank = automaton["B"]  # "#"
     final = automaton["F"]  # ["q3", ...]
     operations = automaton["Delta"]  # {} todos los q
+
+    print(operations)
 
     state = {"q": start, "position": 0}
     response = {
@@ -38,8 +76,6 @@ def validate(string: str):
             all_symbols.index(letter)
         except:
             return response
-
-    i = 0
 
     while True:
         # Determina si el programa llegó a su final "F"
