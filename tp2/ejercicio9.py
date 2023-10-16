@@ -1,5 +1,7 @@
 import json
 import os
+
+# Librería
 import xmltodict
 
 
@@ -15,7 +17,7 @@ def validate(string: str):
             json_automaton = transform(automaton)
             respose = resolve(string, json_automaton)
 
-        else:
+        elif ext == ".json":
             automaton = json.load(json_f)
             respose = resolve(string, automaton)
 
