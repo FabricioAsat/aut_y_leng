@@ -1,9 +1,8 @@
 class Parser(object):
     """
     Gramática LL1:
-        S -> F
-        S -> (S+F)
-        S -> a
+        S -> aAS | b
+        A -> b | bSA
     """
 
     def __init__(self):
@@ -16,23 +15,25 @@ class Parser(object):
 
     def S(self):
         print("S", self.cadena)
-        if self.cadena[0] == "(":
-            self.match("(")
+        if self.cadena[0] == "a":
+            self.match("a")
+            self.A()
             self.S()
-            self.match("+")
-            self.F()
-            self.match(")")
-        elif self.cadena[0] == "a":
-            self.F()
+        elif self.cadena[0] == "b":
+            self.match("b")
         else:
             raise Exception("Error", "En S")
 
-    def F(self):
-        print("F", self.cadena)
-        if self.cadena[0] == "a":
+    def A(self):
+        print("A", self.cadena)
+        if self.cadena[0] == "b":
+            self.match("b")
+            self.S()
+            self.A()
+        elif self.cadena[0] == "a":
             self.match("a")
         else:
-            raise Exception("Error", "En F")
+            raise Exception("Error", "En A")
 
     def match(self, s):
         print("M", self.cadena, s)
@@ -44,5 +45,5 @@ class Parser(object):
 
 if __name__ == "__main__":
     p = Parser()
-    word = "(((a+a)+a)+a)$"
+    word = "abaabab$"
     print(f"S('{word}') -> {p.evaluate(word)}")
