@@ -1,10 +1,4 @@
 class Parser(object):
-    """
-    Gramática LL1:
-        S -> aAS | b
-        A -> b | bSA
-    """
-
     def __init__(self):
         self.cadena = None
 

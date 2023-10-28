@@ -9,23 +9,21 @@ class Parser(object):
 
     def S(self):
         print("S", self.cadena)
-        if self.cadena[0] == "(":
-            self.match("(")
-            self.S()
-            self.match("+")
-            self.F()
-            self.match(")")
-        elif self.cadena[0] == "a":
-            self.F()
-        else:
-            raise Exception("Error", "En S")
-
-    def F(self):
-        print("F", self.cadena)
         if self.cadena[0] == "a":
             self.match("a")
+            self.T()
         else:
-            raise Exception("Error", "En F")
+            pass
+
+    def T(self):
+        print("T", self.cadena)
+        if self.cadena[0] == "a":
+            self.match("a")
+            self.S()
+            self.match("b")
+            self.match("b")
+        else:
+            pass
 
     def match(self, s):
         print("M", self.cadena, s)
@@ -37,5 +35,5 @@ class Parser(object):
 
 if __name__ == "__main__":
     p = Parser()
-    word = "(((a+a)+a)+a)$"
+    word = "aaaaaabbbb$"
     print(f"S('{word}') -> {p.evaluate(word)}")
