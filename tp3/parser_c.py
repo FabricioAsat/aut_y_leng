@@ -35,5 +35,5 @@ class Parser(object):
 
 if __name__ == "__main__":
     p = Parser()
-    word = "aaaaaabbbb$"
+    word = "aabb$"
     print(f"S('{word}') -> {p.evaluate(word)}")
